@@ -1,0 +1,35 @@
+class Solution 
+{
+    // Function to find length of longest increasing subsequence.
+    int longestSubsequence(int n, int arr[])
+    {
+        // code here
+        int[] temp=new int[n];
+        temp[0]=arr[0];
+        int ind=0;
+        for(int i=1;i<n;i++) {
+            if(arr[i]>temp[ind]) {
+                temp[++ind]=arr[i];
+            } else {
+                int c=ceil(temp,0,ind,arr[i]);
+                temp[c]=arr[i];
+            }
+        }
+        return ind+1;
+    }
+    
+    int ceil(int[] arr,int i,int j,int x) {
+        int c=0;
+        while(i<=j) {
+            int m=(i+j)/2;
+            if(arr[m]==x)
+                return m;
+            if(arr[m]<x) {
+                i=m+1;
+            } else {
+                j=m-1; c=m;
+            } 
+        }
+        return c;
+    }
+} 
