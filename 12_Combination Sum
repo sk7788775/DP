@@ -1,0 +1,26 @@
+class Solution {
+    
+    List<List<Integer>> list=new ArrayList<>();
+    
+    List<List<Integer>> combinationSum2(int[] arr, int w) {
+        Arrays.sort(arr);
+        solve(arr,0,w,new ArrayList<Integer>());
+        return (new ArrayList<>(list));
+    }
+    
+    void solve(int[] arr,int ind,int w,ArrayList<Integer> curr) {
+        if(w==0 || ind==arr.length) {
+            if(w==0)
+                list.add(new ArrayList<>(curr));
+            return;
+        }
+        for(int i=ind;i<arr.length;i++) {
+            if(arr[i]<=w && (i==ind || arr[i]!=arr[i-1])) {
+                curr.add(arr[i]);
+                solve(arr,i+1,w-arr[i],curr);
+                curr.remove(curr.size()-1);
+            }
+        }
+    }
+    
+}
