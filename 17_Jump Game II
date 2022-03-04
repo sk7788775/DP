@@ -1,0 +1,25 @@
+class Solution {
+    int[] dp;
+    public int jump(int[] nums) {
+        dp=new int[nums.length];
+        Arrays.fill(dp,-1);
+        return solve(nums,nums.length-1);
+    }
+    
+    int solve(int[] arr,int ind) {
+        if(ind==0) return 0;
+        if(dp[ind]!=-1)
+            return dp[ind];
+        int res=Integer.MAX_VALUE;
+        for(int i=ind-1;i>=0;i--) {
+            int d=ind-i;
+            if(arr[i]>=d) {
+               int temp=solve(arr,i);
+               if(temp!=Integer.MAX_VALUE)
+                   res=Math.min(res,temp+1);
+            }
+        }
+        dp[ind]=res;
+        return res;
+    }
+}
